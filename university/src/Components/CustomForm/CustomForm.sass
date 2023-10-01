@@ -1,0 +1,80 @@
+@import "src/Styles/variables.sass"
+
+.form-wrapper
+	display: flex
+	flex-direction: column
+
+	.top
+		width: 100%
+
+	.inputs-wrapper
+		display: flex
+		flex-direction: column
+		width: 100%
+		margin: 20px 0
+
+		.form-input-wrapper
+
+			.lesson-time-input
+				color: #fff
+
+			.lesson-time-icon
+				color: #fff
+
+			.form-input-container
+				width: 100%
+				position: relative
+				display: flex
+
+				input
+					width: 100%
+					border: none
+					color: #fff
+
+					&.lesson-time-input
+						background: $secondary
+
+					&.injected
+						background: #FF66CC
+
+					&.atwork
+						background: #3366CC
+
+					&.completed
+						background: #00FF66
+
+					&.cancelled
+						background: #FF9966
+
+					&.deleted
+						background: #CC3333
+
+				svg
+					position: absolute
+					top: 12px
+					right: 16px
+					font-size: 20px
+					color: #fff
+
+	.buttons-container
+		width: 100%
+		display: flex
+		justify-content: center
+
+		.save-button
+			padding: 10px 20px
+			background: $secondary
+			outline: none
+			border: none
+			border-radius: 8px
+			color: #fff
+			cursor: pointer
+			font-size: 16px
+			transition: all 0.2s ease
+
+			&:hover
+				transform: scale(1.05)
+
+
+
+
