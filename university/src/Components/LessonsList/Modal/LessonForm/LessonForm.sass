@@ -1,0 +1,67 @@
+@import "src/Styles/variables.sass"
+
+.input-container-wrapper
+	display: flex
+	flex-direction: column
+	align-items: center
+	width: 100%
+	gap: 25px
+
+	&.disabled
+		.input-container
+			background: #2a2f3b
+			padding: 10px 20px
+			font-size: 18px
+
+	.form-title
+		font-size: 20px
+
+	.input-container
+		display: flex
+		align-items: center
+		width: 280px
+		background: #eaeaea
+		border-radius: 10px
+		position: relative
+		overflow: hidden
+
+		input
+			padding: 10px 20px
+			width: 100%
+			background: transparent
+			border: none
+			outline: none
+			color: #797979
+			font-size: 18px
+
+	.delete-btn-wrapper
+		top: 15px
+		left: 15px
+
+	.submit-button
+		display: flex
+		justify-content: center
+		align-items: center
+		padding: 10px 55px
+		margin-top: 10px
+		color: #fff
+		background: $primary
+		border-radius: 50px
+		border: none
+		outline: none
+		font-size: 18px
+		font-weight: 700
+		cursor: pointer
+		transition: 0.3s ease
+
+		&:hover
+			transform: scale(1.05)
+
+	.status-info-container
+		width: 280px
+		color: #fff
+		display: flex
+		justify-content: space-between
+		align-items: center
+		border-radius: 8px
+		padding: 10px

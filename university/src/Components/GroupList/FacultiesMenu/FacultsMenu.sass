@@ -1,0 +1,31 @@
+@import "src/Styles/variables.sass"
+
+@mixin facultsMenu
+	.faculty-wrapper
+		width: 100%
+		display: flex
+		align-items: center
+		justify-content: flex-start
+		flex-wrap: wrap
+		gap: 20px
+
+		span
+			font-size: 24px
+
+		button
+			padding: 15px 25px
+			color: #ffffff
+			background: #2a2f3b
+			outline: none
+			border: none
+			border-radius: 25px
+			cursor: pointer
+			font-size: 18px
+
+			&:hover
+				background: #323741
+
+			&.chosen
+				background: $primary
+
+
