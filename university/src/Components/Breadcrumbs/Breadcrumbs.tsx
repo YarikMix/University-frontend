@@ -1,29 +1,39 @@
-import * as React from 'react'
 import { Link, useLocation } from "react-router-dom";
 import "./Breadcrumbs.sass"
 import {FaHome, FaChevronRight} from "react-icons/fa";
-import {useContext} from "react";
-import {GroupContext} from "../../App";
+import {useGroup} from "../../hooks/useGroup";
 
 const Breadcrumbs = () => {
+
+    const { group, setGroup } = useGroup()
+
+    const resetSelectedGroup = () => setGroup(undefined)
+
     const location = useLocation()
 
     let currentLink = ''
 
-    const { selectedGroup, setSelectedGroup } = useContext(GroupContext)
-
+    let topics = {
+        "groups": "Группы",
+        "draft": "Черновик",
+        "lessons": "Занятия",
+        "home": "Главная",
+        "profile": "Профиль",
+        "login": "Вход",
+        "register": "Регистрация"
+    }
 
     const crumbs = location.pathname.split('/').filter(crumb => crumb !== '').map(crumb => {
 
         currentLink += `/${crumb}`
 
-        if (crumb == "groups")
+        if (Object.keys(topics).find(x => x == crumb))
         {
             return (
                 <div className={"crumb"} key={crumb}>
 
-                    <Link to={currentLink} onClick={() => setSelectedGroup(null)}>
-                        Группы
+                    <Link to={currentLink} onClick={resetSelectedGroup}>
+                        { topics[crumb] }
                     </Link>
 
                     <FaChevronRight className={"chevron-icon"}/>
@@ -38,7 +48,7 @@ const Breadcrumbs = () => {
                 <div className={"crumb"} key={crumb}>
 
                     <Link to={currentLink}>
-                        Группа { selectedGroup?.name}
+                        Группа { group?.name}
                     </Link>
 
                     <FaChevronRight className={"chevron-icon"}/>
@@ -48,26 +58,22 @@ const Breadcrumbs = () => {
         }
     });
 
-
     return (
-        <div className={"breadcrumbs-wrapper"}>
-            <div className={"breadcrumbs"}>
+        <div className="breadcrumbs">
 
-                <div className="crumb">
+            <div className="crumb">
 
-                    <Link to={currentLink}>
-                        <FaHome className={"home-icon"}/>
-                    </Link>
+                <Link to={"/"}>
+                    <FaHome className={"home-icon"}/>
+                </Link>
 
-                    <FaChevronRight className={"chevron-icon"} />
-
-                </div>
-
-                {crumbs}
+                <FaChevronRight className={"chevron-icon"} />
 
             </div>
-        </div>
 
+            {crumbs}
+
+        </div>
     )
 }
 

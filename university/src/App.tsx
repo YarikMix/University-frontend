@@ -1,74 +1,110 @@
-import "./Styles/Main.sass"
-import "./Styles/Reset.sass"
-import "./Styles/Fonts.sass"
-import {BrowserRouter, Navigate, Outlet, Route, Routes} from 'react-router-dom';
+import './Styles/Main.sass'
+import './Styles/Reset.sass'
+import './Styles/Fonts.sass'
+import {BrowserRouter, Route, Routes, Navigate, Outlet, useLocation } from 'react-router-dom';
 import Header from "./Components/Header/Header";
-import GroupList from "./Components/GroupList/GroupList";
 import Breadcrumbs from "./Components/Breadcrumbs/Breadcrumbs";
-import * as React from "react";
-import {SelectedGroupContextType, iSelectedGroupContextState,  Group} from "./Types";
-import {useEffect, useState} from "react";
-import GroupPage from "./Components/GroupPage/GroupPage";
+import GroupPage from "./Pages/GroupPage/GroupPage";
+import SignIn from "./Pages/LoginPage/SignIn/SignIn";
+import SignUp from "./Pages/LoginPage/SignUp/SignUp";
+import {Provider} from "react-redux"
+import store from "./store/store"
+import {ToastContainer} from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+import LessonConstructor from "./Components/LessonConstructor/LessonConstructor";
+import {useAuth} from "./hooks/useAuth";
+import LessonPage from "./Pages/LessonPage/LessonPage";
+import HomePage from "./Pages/HomePage/HomePage";
+import ProfilePage from "./Pages/ProfilePage/ProfilePage";
+import LessonsListPage from "./Pages/LessonsListPage/LessonsListPage";
+import GroupListPage from "./Pages/GroupListPage/GroupListPage";
+import {QueryClient, QueryClientProvider } from "react-query";
 
+const LoginFormLayout = () => {
+	return (
+		<div className="login-wrapper">
+			<Outlet />
+		</div>
+	)
+}
 
-export const GroupContext = React.createContext<SelectedGroupContextType>(iSelectedGroupContextState)
+const TopPanelWrapper = () => {
+	const {is_authenticated} = useAuth()
+	const location = useLocation()
 
-
-
-const Main = () => {
-
-    const [selectedGroup, setSelectedGroup] = useState<Group | null>(null)
-
-    return (
-        <GroupContext.Provider value={{selectedGroup, setSelectedGroup}}>
-            <div>
-
-                <div className="wrapper">
-
-                    <Header />
-
-                    <div className={"content-wrapper"}>
-
-                        <Breadcrumbs/>
-
-                        <Outlet />
-
-                    </div>
-
-                </div>
-
-            </div>
-        </GroupContext.Provider>
-    );
+	return (
+		<div className="top-panels-wrapper">
+			<Breadcrumbs />
+			{is_authenticated && location.pathname.includes("groups") && <LessonConstructor /> }
+		</div>
+	)
 }
 
 
-const App = () => {
-    return (
-        <BrowserRouter>
+function App() {
 
-            <div className="App">
+	const queryClient = new QueryClient()
 
-                <Routes>
+	return (
+		<QueryClientProvider client={queryClient}>
 
-                    <Route path="/" element={<Navigate to="/groups" replace />} />
+			<Provider store={store}>
 
-                    <Route path="/groups" element={<Main />} >
+				<BrowserRouter basename="/university">
 
-                        <Route path="/groups" >
-                            <Route path=":id" element={<GroupPage />} />
-                        </Route>
+					<div className="App">
 
-                        <Route index element={<GroupList />} />
+						<div className="wrapper">
 
-                    </Route>
+							<ToastContainer />
 
-                </Routes>
+							<Header />
 
-            </div>
+							<div className="content-wrapper">
 
-        </BrowserRouter>
-  );
+								<TopPanelWrapper />
+
+								<Routes>
+
+									<Route path="/home" element={<HomePage />} />
+
+									<Route path="/" element={<Navigate to="/home" replace />} />
+
+
+									<Route path="/auth/" element={<LoginFormLayout />} >
+
+										<Route path="" element={<Navigate to="login/" replace />} />
+
+										<Route path="login/" element={<SignIn />} />
+
+										<Route path="register/" element={<SignUp />} />
+
+									</Route>
+
+
+									<Route path="/profile" element={<ProfilePage />} />
+
+									<Route path="/lessons" element={<LessonsListPage />} />
+
+									<Route path="/lessons/draft" element={<LessonPage />} />
+
+									<Route path="/groups" element={<GroupListPage />} />
+
+									<Route path="/groups/:id" element={<GroupPage />} />
+
+								</Routes>
+
+							</div>
+
+						</div>
+
+					</div>
+
+				</BrowserRouter>
+			</Provider>
+
+		</QueryClientProvider>
+  )
 }
 
-export default App;
+export default App

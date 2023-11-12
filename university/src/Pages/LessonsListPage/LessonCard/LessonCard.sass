@@ -1,0 +1,40 @@
+@import "src/Styles/variables.sass"
+
+.lesson-card
+	display: flex
+	width: 100%
+	align-items: center
+	justify-content: space-between
+	gap: 25px
+	padding: 25px 25px 25px
+	transition: all 0.3s ease
+	background: $secondary
+	border-bottom: 1px solid #2a2f3b
+	box-shadow: 0 4px 30px -10px rgba(0, 0, 0, 0.2)
+	position: relative
+
+	.status-icon
+		position: absolute
+		top: 15px
+		left: 15px
+		font-size: 28px
+
+	.open-card-btn
+		font-size: 18px
+		padding: 10px 25px
+		text-align: center
+		text-decoration: none
+		color: #ffffff
+		border-radius: 15px
+		border: none
+		cursor: pointer
+		outline: none
+		transition: 0.3s
+		background: $primary
+
+		&:hover
+			transform: scale(1.1)
+
+	.delete-btn-wrapper
+		top: 15px
+		right: 15px

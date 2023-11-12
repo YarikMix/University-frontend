@@ -1,4 +1,3 @@
-import * as React from 'react'
 import "./Header.sass"
 import logo from "./Logo.png"
 import ProfileMenu from "./ProfileMenu/ProfileMenu";
