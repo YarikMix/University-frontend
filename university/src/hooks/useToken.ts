@@ -3,19 +3,37 @@ import Cookies from "universal-cookie";
 export function useToken() {
 	const cookies = new Cookies()
 
-	const token = cookies.get("access_token");
+	const access_token = cookies.get("access_token");
+	const refresh_token = cookies.get("refresh_token");
 
-	const setToken = (value) => {
-		cookies.set("access_token", value, {path: '/university', expires: new Date(Date.now()+2592000)})
+	const setAccessToken = (value) => {
+		cookies.set("access_token", value, {path: '/university', expires: new Date(Date.now()+25920000)})
 	}
 
-	const resetToken = () => {
-		cookies.set("access_token", undefined, {path: '/university', expires: new Date(Date.now()+2592000)})
+	const setRefreshToken = (value) => {
+		cookies.set("refresh_token", value, {path: '/university', expires: new Date(Date.now()+25920000)})
+	}
+
+	const resetAccessToken = () => {
+		cookies.set("access_token", undefined, {path: '/university', expires: new Date(Date.now()+25920000)})
+	}
+
+	const resetRefreshToken = () => {
+		cookies.set("refresh_token", undefined, {path: '/university', expires: new Date(Date.now()+25920000)})
+	}
+
+	const resetTokens = () => {
+		resetAccessToken()
+		resetRefreshToken()
 	}
 
 	return {
-		token,
-		setToken,
-		resetToken
+		access_token,
+		refresh_token,
+		setAccessToken,
+		resetAccessToken,
+		setRefreshToken,
+		resetRefreshToken,
+		resetTokens
 	};
 }

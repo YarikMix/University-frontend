@@ -1,8 +1,8 @@
 import {useDispatch, useSelector} from 'react-redux';
-import {updateGroup} from "../store/groupSlice";
+import {updateGroup} from "../store/selectedGroupSlice";
 
 export function useGroup() {
-	const group = useSelector(state => state.group.group);
+	const group = useSelector(state => state.selectedGroup.group);
 
 	const dispatch = useDispatch()
 

@@ -1,30 +1,27 @@
 import {createSlice} from "@reduxjs/toolkit"
 
 const initialState= {
-	lessons: []
+	queryPageIndex: 0,
+	queryPageSize: 5,
+	totalCount: 0,
 };
 
 const lessonsSlice = createSlice({
 	name: 'lessons',
 	initialState: initialState,
 	reducers: {
-		updateLessons(state, action) {
-			state.lessons = action.payload
+		pageChanged(state, action) {
+			state.queryPageIndex = action.payload
 		},
-		updateLesson(state, action) {
-			state.lessons = state.lessons.map(lesson => {
-				if (lesson.id !== action.payload.id) {
-					return lesson
-				}
-
-				return {
-					...action.payload
-				}
-			})
+		pageSizeChanged(state, action) {
+			state.queryPageSize = action.payload
+		},
+		totalCountChanged(state, action) {
+			state.totalCount = action.payload
 		}
 	}
 })
 
-export const {updateLessons, updateLesson} = lessonsSlice.actions;
+export const {pageChanged, pageSizeChanged, totalCountChanged} = lessonsSlice.actions;
 
 export default lessonsSlice.reducer;

@@ -1,22 +1,31 @@
 import {useDispatch, useSelector} from 'react-redux';
-import {updateLessons, updateLesson} from "../store/lessonsSlice";
+import {pageChanged, pageSizeChanged, totalCountChanged} from "../store/lessonsSlice";
 
 export function useLessons() {
-	const lessons = useSelector(state => state.lessons.lessons);
+	const queryPageIndex = useSelector(state => state.lessons.queryPageIndex);
+	const queryPageSize = useSelector(state => state.lessons.queryPageSize);
+	const totalCount = useSelector(state => state.lessons.totalCount);
 
 	const dispatch = useDispatch()
 
-	const setLessons = (value) => {
-		dispatch(updateLessons(value))
+	const setLessonsPage = (value) => {
+		dispatch(pageChanged(value))
 	}
 
-	const setLesson = (value) => {
-		dispatch(updateLesson(value))
+	const setLessonsPageSize = (value) => {
+		dispatch(pageSizeChanged(value))
+	}
+
+	const setLessonsPageTotalCount = (value) => {
+		dispatch(totalCountChanged(value))
 	}
 
 	return {
-		lessons,
-		setLesson,
-		setLessons
+		queryPageIndex,
+		queryPageSize,
+		totalCount,
+		setLessonsPage,
+		setLessonsPageSize,
+		setLessonsPageTotalCount
 	};
 }

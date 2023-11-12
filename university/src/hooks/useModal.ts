@@ -1,16 +1,30 @@
-import {useDispatch, useSelector} from 'react-redux';
-import {setOpen} from "../store/modalSlise";
+import {useEffect, useRef, useState} from "react";
 
 export function useModal() {
-	const isOpen = useSelector(state => state.modal.isOpen);
 
-	const dispatch = useDispatch()
+	const modalRef = useRef(null);
 
-	const setIsOpen = (value) => {
-		dispatch(setOpen(value))
-	}
+	const buttonRef = useRef(null);
+
+	const [isOpen, setIsOpen] = useState(false);
+
+	const handleClickOutside = (event) => {
+		if (modalRef.current && !modalRef.current.contains(event.target) && !buttonRef.current.contains(event.target)) {
+			setIsOpen(false);
+		}
+	};
+
+	useEffect(() => {
+		document.addEventListener('click', handleClickOutside, true);
+		return () => {
+			document.removeEventListener('click', handleClickOutside, true);
+		};
+	}, []);
+
 
 	return {
+		modalRef,
+		buttonRef,
 		isOpen,
 		setIsOpen
 	};

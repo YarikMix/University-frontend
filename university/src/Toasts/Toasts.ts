@@ -42,8 +42,14 @@ export const lessonDeleteMessage = (id) => {
 	});
 };
 
-export const lessonUpdateMessage = (id) => {
-	toast.success(`Занятие №${id} успешно обновлено`, {
+export const lessonSendMessage = (id) => {
+	toast.success(`Занятие №${id} успешно отправлено`, {
+		position: toast.POSITION.BOTTOM_RIGHT
+	});
+};
+
+export const lessonSaveMessage = (id) => {
+	toast.success(`Занятие №${id} успешно сохранено`, {
 		position: toast.POSITION.BOTTOM_RIGHT
 	});
 };

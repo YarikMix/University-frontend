@@ -2,7 +2,7 @@ import {ReactElement, ReactEventHandler} from "react";
 import {AxiosResponse} from "axios";
 
 export interface Faculty {
-    faculty_id: number,
+    id: number,
     name: string
 }
 
@@ -14,7 +14,7 @@ export const iFacultyMock = {
 export interface Group {
     id: number,
     name: string,
-    faculty: number,
+    faculty: Faculty,
     status: number,
     course: number,
     education_type: number,
@@ -28,8 +28,12 @@ export interface Lesson {
     discipline: string,
     audience: string,
     teacher: string,
+    groups: Group[],
     time: number,
-    day_of_week: number
+    day_of_week: number,
+    date_created: string,
+    date_of_formation: string,
+    date_complete: string
 }
 
 export interface Option {

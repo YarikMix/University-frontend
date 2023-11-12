@@ -15,6 +15,7 @@ const Breadcrumbs = () => {
 
     let topics = {
         "groups": "Группы",
+        "draft": "Черновик",
         "lessons": "Занятия",
         "home": "Главная",
         "profile": "Профиль",
@@ -58,22 +59,20 @@ const Breadcrumbs = () => {
     });
 
     return (
-        <div className={"breadcrumbs-wrapper"}>
-            <div className={"breadcrumbs"}>
+        <div className="breadcrumbs">
 
-                <div className="crumb">
+            <div className="crumb">
 
-                    <Link to={"/"}>
-                        <FaHome className={"home-icon"}/>
-                    </Link>
+                <Link to={"/"}>
+                    <FaHome className={"home-icon"}/>
+                </Link>
 
-                    <FaChevronRight className={"chevron-icon"} />
-
-                </div>
-
-                {crumbs}
+                <FaChevronRight className={"chevron-icon"} />
 
             </div>
+
+            {crumbs}
+
         </div>
     )
 }

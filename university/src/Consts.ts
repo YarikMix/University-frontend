@@ -1,5 +1,5 @@
 // export const DOMEN = "https://cors-anywhere.herokuapp.com/http://smoll.net:8000"
-import {Option} from "./Types";
+import {Faculty, Option} from "./Types";
 
 export const DOMEN = "http://127.0.0.1:8000/"
 
@@ -190,32 +190,59 @@ export const LESSON_TIME : Option[] = [
     }
 ]
 
-export const LESSON_DAY: Option[] = [
+export const LESSON_DAY = [
     {
         id: 1,
-        name: "Понедельник"
+        full_name: "Понедельник",
+        name: "Пн"
     },
     {
         id: 2,
-        name: "Вторник"
+        full_name: "Вторник",
+        name: "Вт"
     },
     {
         id: 3,
-        name: "Среда"
+        full_name: "Среда",
+        name: "Ср"
     },
     {
         id: 4,
-        name: "Четверг"
+        full_name: "Четверг",
+        name: "Чт"
     },
     {
         id: 5,
-        name: "Пятница"
+        full_name: "Пятница",
+        name: "Пт"
     },
     {
         id: 6,
-        name: "Суббота"
+        full_name: "Суббота",
+        name: "Сб"
     }
 ]
+
+/*
+export const LESSON_TIME = [
+    "8:30-10:05",
+    "10:15-11:50",
+    "12:00-13:35",
+    "13:50-15:25",
+    "15:40-17:15",
+    "17:25-19:00",
+    "19:10-20:45"
+]
+
+export const LESSON_DAY = [
+    "Понедельник",
+    "Вторник",
+    "Среда",
+    "Четверг",
+    "Пятница",
+    "Суббота"
+]
+*/
 
 export const STATUSES : Option[] = [
     {
@@ -247,4 +274,20 @@ export const BACKGROUNDS: Record<number, string> = {
     3: "#00FF66",
     4: "#FF9966",
     5: "#CC3333"
+}
+
+export const iLessonDraft = {
+    id: -1,
+    status: 1,
+    discipline: "",
+    audience: "",
+    teacher: "",
+    groups: [],
+    time: 1,
+    day_of_week: 1
+}
+
+export const FacultyItemAny:Faculty = {
+    id: -1,
+    name: "Любой"
 }

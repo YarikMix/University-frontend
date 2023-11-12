@@ -1,10 +1,14 @@
 import {useEffect, useState} from "react";
 
 export function useDesktop() {
-	const [isDesktop, setIsDesktop] = useState(window.innerWidth > 768);
+	const [isDesktopLarge, setIsDesktopLarge] = useState(window.innerWidth > 1180);
+	const [isDesktopMedium, setIsDesktopMedium] = useState(window.innerWidth > 768);
+	const [isMobile, setIsMobile] = useState(window.innerWidth < 420);
 
 	const updateMedia = () => {
-		setIsDesktop(window.innerWidth > 768);
+		setIsDesktopLarge(window.innerWidth > 1180);
+		setIsDesktopMedium(window.innerWidth > 768);
+		setIsMobile(window.innerWidth < 420);
 	};
 
 	useEffect(() => {
@@ -13,6 +17,8 @@ export function useDesktop() {
 	});
 
 	return {
-		isDesktop
+		isDesktopMedium,
+		isDesktopLarge,
+		isMobile
 	};
 }
