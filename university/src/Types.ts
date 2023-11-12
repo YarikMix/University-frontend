@@ -1,8 +1,5 @@
-import {ReactElement, ReactEventHandler} from "react";
-import {AxiosResponse} from "axios";
-
 export interface Faculty {
-    id: number,
+    faculty_id: number,
     name: string
 }
 
@@ -14,7 +11,7 @@ export const iFacultyMock = {
 export interface Group {
     id: number,
     name: string,
-    faculty: Faculty,
+    faculty: number,
     status: number,
     course: number,
     education_type: number,
@@ -28,12 +25,8 @@ export interface Lesson {
     discipline: string,
     audience: string,
     teacher: string,
-    groups: Group[],
     time: number,
-    day_of_week: number,
-    date_created: string,
-    date_of_formation: string,
-    date_complete: string
+    day_of_week: number
 }
 
 export interface Option {
@@ -47,11 +40,3 @@ export interface DropdownMenuList {
     appendDefaultTitle: boolean,
     setSelectedOption: (id: number) => void
 }
-
-export interface User {
-    id: number,
-    name: string,
-    email: string
-}
-
-export type Response = Promise<AxiosResponse> | any

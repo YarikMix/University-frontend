@@ -1,109 +1,51 @@
 import './Styles/Main.sass'
 import './Styles/Reset.sass'
 import './Styles/Fonts.sass'
-import {BrowserRouter, Route, Routes, Navigate, Outlet, useLocation } from 'react-router-dom';
+import {BrowserRouter, Route, Routes, Navigate} from 'react-router-dom';
 import Header from "./Components/Header/Header";
+import GroupList from "./Components/GroupList/GroupList";
 import Breadcrumbs from "./Components/Breadcrumbs/Breadcrumbs";
-import GroupPage from "./Pages/GroupPage/GroupPage";
-import SignIn from "./Pages/LoginPage/SignIn/SignIn";
-import SignUp from "./Pages/LoginPage/SignUp/SignUp";
-import {Provider} from "react-redux"
-import store from "./store/store"
-import {ToastContainer} from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
-import LessonConstructor from "./Components/LessonConstructor/LessonConstructor";
-import {useAuth} from "./hooks/useAuth";
-import LessonPage from "./Pages/LessonPage/LessonPage";
-import HomePage from "./Pages/HomePage/HomePage";
-import ProfilePage from "./Pages/ProfilePage/ProfilePage";
-import LessonsListPage from "./Pages/LessonsListPage/LessonsListPage";
-import GroupListPage from "./Pages/GroupListPage/GroupListPage";
-import {QueryClient, QueryClientProvider } from "react-query";
-
-const LoginFormLayout = () => {
-	return (
-		<div className="login-wrapper">
-			<Outlet />
-		</div>
-	)
-}
-
-const TopPanelWrapper = () => {
-	const {is_authenticated} = useAuth()
-	const location = useLocation()
-
-	return (
-		<div className="top-panels-wrapper">
-			<Breadcrumbs />
-			{is_authenticated && location.pathname.includes("groups") && <LessonConstructor /> }
-		</div>
-	)
-}
+import {useState} from "react";
+import {Group} from "./Types";
+import GroupPage from "./Components/GroupPage/GroupPage";
 
 
 function App() {
 
-	const queryClient = new QueryClient()
+	const [selectedGroup, setSelectedGroup] = useState<Group | undefined>(undefined)
 
 	return (
-		<QueryClientProvider client={queryClient}>
 
-			<Provider store={store}>
+		  <div className="App">
 
-				<BrowserRouter basename="/university">
+			  <div className="wrapper">
 
-					<div className="App">
+				  <Header />
 
-						<div className="wrapper">
+				  <div className={"content-wrapper"}>
 
-							<ToastContainer />
+					  <BrowserRouter basename="/university">
 
-							<Header />
+						  <Breadcrumbs selectedGroup={selectedGroup} setSelectedGroup={setSelectedGroup}/>
 
-							<div className="content-wrapper">
+						  <Routes>
 
-								<TopPanelWrapper />
+							  <Route path="/" element={<Navigate to="/groups" replace />} />
 
-								<Routes>
+							  <Route path="/groups" element={<GroupList />} />
 
-									<Route path="/home" element={<HomePage />} />
+							  <Route path="/groups/:id" element={<GroupPage selectedGroup={selectedGroup} setSelectedGroup={setSelectedGroup} />} />
 
-									<Route path="/" element={<Navigate to="/home" replace />} />
+						  </Routes>
 
+					  </BrowserRouter>
 
-									<Route path="/auth/" element={<LoginFormLayout />} >
+				  </div>
 
-										<Route path="" element={<Navigate to="login/" replace />} />
+			  </div>
 
-										<Route path="login/" element={<SignIn />} />
+		  </div>
 
-										<Route path="register/" element={<SignUp />} />
-
-									</Route>
-
-
-									<Route path="/profile" element={<ProfilePage />} />
-
-									<Route path="/lessons" element={<LessonsListPage />} />
-
-									<Route path="/lessons/draft" element={<LessonPage />} />
-
-									<Route path="/groups" element={<GroupListPage />} />
-
-									<Route path="/groups/:id" element={<GroupPage />} />
-
-								</Routes>
-
-							</div>
-
-						</div>
-
-					</div>
-
-				</BrowserRouter>
-			</Provider>
-
-		</QueryClientProvider>
   )
 }
 
