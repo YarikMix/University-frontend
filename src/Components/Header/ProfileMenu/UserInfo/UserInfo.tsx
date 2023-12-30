@@ -4,8 +4,6 @@ import {ImExit} from "react-icons/im";
 import user_avatar from "./user.png";
 import {useNavigate } from "react-router-dom";
 import {logOutMessage} from "../../../../Toasts/Toasts";
-import {useToken} from "../../../../hooks/useToken";
-import {useDraftLesson} from "../../../../hooks/useDraftLesson";
 import {useModal} from "../../../../hooks/useModal";
 
 const UserInfo = () => {
@@ -14,32 +12,21 @@ const UserInfo = () => {
 
 	const {is_moderator, user_name, user_email, logOut} = useAuth()
 
-	const {resetTokens} = useToken()
-
-	const {lesson} = useDraftLesson()
-
 	const {modalRef, buttonRef, isOpen, setIsOpen} = useModal()
 
+	const doLogOut = async () => {
 
-	const deleteLastLesson = async () => {
-		console.log(lesson)
-	}
+		await logOut()
 
-	const doLogOut = () => {
-
-		// TODO
-		deleteLastLesson()
-
-		logOut()
-		resetTokens()
 		logOutMessage()
+
 		navigate("/home")
 	}
 
 	return (
 		<div>
 			<div ref={buttonRef}>
-				<img src={user_avatar} className="user-avatar" onClick={(e) => setIsOpen(!isOpen)} />
+				<img src={user_avatar} className="user-avatar" onClick={(e) => setIsOpen(!isOpen)}  alt=""/>
 			</div>
 
 			<div className={"user-info-wrapper " + (isOpen ? "open" : "")} ref={modalRef}>

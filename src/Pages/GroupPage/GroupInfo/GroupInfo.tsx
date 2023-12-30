@@ -17,10 +17,10 @@ const GroupInfo = ({ group_id }: { group_id:number | undefined }) => {
             });
 
             if (response.status == 200){
-                setGroup(response1.data)
+                setGroup(response.data)
             }
 
-            setGroup(response1.data)
+            setGroup(response.data)
 
         } catch (e) {
 

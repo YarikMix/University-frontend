@@ -1,13 +1,13 @@
 import {toast} from "react-toastify";
 
-export const successMessage = (username) => {
-	toast.success(`Добро пожаловать, ${username}!`, {
+export const successMessage = (message) => {
+	toast.success(message, {
 		position: toast.POSITION.BOTTOM_RIGHT
 	});
 };
 
-export const errorMessage = () => {
-	toast.error(`Неправильный логин или пароль`, {
+export const errorMessage = (message) => {
+	toast.error(message, {
 		position: toast.POSITION.BOTTOM_RIGHT
 	});
 };
